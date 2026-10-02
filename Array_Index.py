@@ -48,4 +48,24 @@
 #     return r
 
 # print(solve([20,3,13,5,10,14,8,5,11,9,1,11], 9))
-print([0] * 4)
+# print([0] * 4)
+
+# def solve(A, B):
+#     n = len(A)
+#     m  = len(A[0])
+#     i = 0
+#     j = m - 1
+#     while i < n and j >= 0:
+#         if A[i][j] == B:
+#             return (i * 1009 + j)
+#         elif A[i][j] > B:
+#             j -= 1
+#         else:
+#             i +=1
+#     return -1
+
+# A = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+# B = 2
+# print(solve(A, B))
+
+
