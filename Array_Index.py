@@ -68,4 +68,74 @@
 # B = 2
 # print(solve(A, B))
 
+# class Solution:
+#     # @param A : list of list of integers
+#     # @return a list of list of integers
+#     def solve(self, A):
 
+#         result = []
+
+#         current_start = A[0][0]
+#         current_end = A[0][1]
+
+#         for i in range(1, len(A)):
+#             next_start = A[i][0]
+#             next_end = A[i][1]
+            
+#             if current_end >= next_start:
+#                 current_end = max(current_end, next_end)
+#             else:
+#                 result.append([current_start, current_end])
+#                 current_start = next_start
+#                 current_end = next_end
+#         result.append([current_start, current_end])
+#         return result
+
+class Solution:
+    # @param A : list of list of integers
+    # @param B : list of integers
+    # @return a list of list of integers
+    def insert(self, A, B):
+
+        result = []
+        A.append(B)
+        A.sort()
+        current_start = A[0][0]
+        current_end = A[0][1]
+        for i in range(1, len(A)):
+            next_end = A[i][1]
+            next_start = A[i][0]
+            if current_end >= next_start:
+                current_end = max(current_end, next_end)
+            else:
+                result.append([current_start, current_end])
+                current_start = next_start
+                current_end = next_end
+        result.append([current_start, current_end])
+        return result
+
+
+
+class Solution:
+    # @param A : list of list of integers
+    # @return a list of integers
+    def solve(self, A):
+        result = []
+        n = len(A)
+        m = len(A[0])
+        for i in range(m):
+            result.append(A[0][i])
+
+        for i in range(1, n):
+            result.append(A[i][m-1])
+
+        for i in range(m-2, -1, -1):
+            result.append(A[n-1][i])
+
+        for i in range(n-2,0,-1):
+            result.append(A[i][0])
+
+
+        return result
+
+        
