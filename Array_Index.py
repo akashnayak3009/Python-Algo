@@ -139,3 +139,72 @@ class Solution:
         return result
 
         
+class Solution:
+    # @param A : list of integers
+    # @return a list of integers
+    def nextPermutation(self, A):
+        
+        n = len(A)
+        i = n-2
+
+        while i >= 0 and A[i] >= A[i+1]:
+            i -=1
+
+        if i>=0:
+            j = n-1
+
+            while A[j] <= A[i]:
+                j -=1
+
+            A[i] , A[j] = A[j], A[i]
+
+        left = i +1
+        right = n -1
+
+        while left < right:
+            A[left], A[right] = A[right],A[left]
+
+            left += 1
+            right -=1
+
+        return A
+
+class Solution:
+    # @param A : integer
+    # @return a list of list of integers
+    def generateMatrix(self, A):
+
+        result = [[0] * A for _ in range(A)]
+
+        top =0
+        bottom = A-1
+        left = 0
+        right = A-1
+        nums =1
+
+        while top <= bottom and left <= right:
+            for j in range(left, right+1):
+                result[top][j] = nums
+                nums +=1
+            
+            top +=1
+
+            for j in range(top,bottom + 1):
+                result[j][right] = nums
+                nums +=1
+            right -=1
+
+            for j in range(right, left-1, -1):
+                result[bottom][j] =nums
+                nums +=1
+
+            bottom -=1
+
+            for j in range(bottom, top-1,-1):
+                result[j][left] = nums
+                nums +=1
+
+            left +=1
+
+
+        return result
