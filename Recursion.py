@@ -131,3 +131,25 @@ class Solution:
 
 
         return magic(A, 0)
+class Solution:
+    def towerOfHanoi(self, A):
+
+        ans = []
+
+        def hanoi(n, source, helper, destination):
+
+            if n == 0:
+                return
+
+            # Move n-1 disks from source to helper
+            hanoi(n - 1, source, destination, helper)
+
+            # Move nth disk from source to destination
+            ans.append([n, source, destination])
+
+            # Move n-1 disks from helper to destination
+            hanoi(n - 1, helper, source, destination)
+
+        hanoi(A, 1, 2, 3)
+
+        return ans
