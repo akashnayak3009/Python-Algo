@@ -170,3 +170,105 @@ class Solution:
         return count % mod
 
         
+from functools import cmp_to_key
+
+class Solution:
+    # @param A : list of integers
+    # @return a strings
+    def largestNumber(self, A):
+
+        A = list(map(str, A))
+
+        def compare(x,y):
+            xy = x + y
+            yx = y + x
+
+            if xy > yx:
+                return -1
+            elif xy < yx:
+                return 1
+            else:
+                return 0
+        
+        A.sort(key= cmp_to_key(compare))
+
+        if A[0] == "0":
+            return "0"
+        
+        return ''.join(A)
+
+
+
+from functools import cmp_to_key
+
+class Solution:
+    # @param A : list of integers
+    # @return a list of integers
+    def solve(self, A):
+
+        def compare(n):
+            count = 0
+            i = 1
+
+            while i * i <=n:
+
+                if n % i == 0:
+                    if i *i == n:
+                        count +=1
+                    else:
+                        count +=2
+            i += 1
+            return count
+
+
+        def compare_solve(x,y):
+            a = compare(x)
+            b = compare(y)
+
+            if a != b:
+                return a - b 
+
+            return x - y
+        
+        A.sort(key=cmp_to_key(compare_solve))
+
+        return A
+
+
+class Solution:
+    # @param A : list of integers
+    # @return a list of integers
+    def solve(self, A):
+
+        def quick(X, left , right):
+            pivot = X[left]
+            i = left + 1
+            j = right
+
+            while i <=j:
+
+                while i <= right and X[i] <= pivot:
+                    i +=1
+
+                while j > left and X[j] > pivot:
+                    j -=1
+            
+                if i < j:
+                    X[i], X[j] = X[j], X[i]
+
+            X[left], X[j] = X[j], X[left]
+
+            return j 
+
+        def quick_sort(X, left, right):
+
+            if left >= right:
+                return
+            
+            pivot = quick(X, left, right)
+
+            quick_sort(X, left, pivot -1)
+            quick_sort(X, pivot + 1, right)
+
+        quick_sort(A, 0 , len(A) - 1)
+        return A
