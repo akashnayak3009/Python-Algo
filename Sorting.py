@@ -272,3 +272,108 @@ class Solution:
 
         quick_sort(A, 0 , len(A) - 1)
         return A
+
+
+        class Solution:
+    # @param A : list of integers
+    # @return a list of integers
+    def sort01(self, A):
+        
+        n = len(A)
+        l = 0
+        r = n -1
+
+        while l < r:
+
+            if A[l] == 1 and A[r] == 0:
+                A[l], A[r] = A[r], A[l]
+
+            if A[l] == 0:
+                l +=1
+
+            if A[r] == 1:
+                r -=1
+
+
+        return A
+
+
+from functools import cmp_to_key
+class Solution:
+    # @param A : list of integers
+    # @return a list of integers
+    def solve(self, A):
+
+        def separator(X):
+            return( X // 10) % 10
+
+        def compare(x, y):
+            a = separator(x)
+            b = separator(y)
+
+            if a < b:
+                return -1
+            if a > b:
+                return 1
+
+            if x > y:
+                return -1
+
+            if x < y:
+                return 1
+
+            return 0
+
+        A.sort(key= cmp_to_key(compare))
+        return A
+
+def wave(self, A):
+    
+    l = 0
+    n = len(A) - 2
+    A.sort()
+    while l <= n:
+        if A[l+1] > A[l]:
+            A[l], A[l+1] = A[l+1], A[l]
+        l +=2
+    return A
+
+
+class Solution:
+    # @param A : list of list of integers
+    # @param B : integer
+    # @return a list of list of integers
+    def solve(self, A, B):
+        points =[]
+
+        for point in A:
+
+            x = point[0]
+            y = point[1]
+
+            dist = x * x + y * y
+            points.append((dist, point))
+
+
+        points.sort(key = lambda item: item[0])
+
+        result = []
+
+        for i in range(B):
+            result.append(points[i][1])
+
+        return result
+
+    
+def partition(arr):
+    pivot = arr[-1]
+    i = -1
+
+    for j in range(len(arr) - 1):
+        if arr[j] < pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+
+    arr[i + 1], arr[-1] = arr[-1], arr[i + 1]
+
+    return i + 1
