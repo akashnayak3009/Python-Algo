@@ -175,3 +175,68 @@ class Solution:
         return -1
             
             
+class Solution:
+    # @param A : integer
+    # @param B : integer
+    # @param C : list of integers
+    # @return an integer
+    def paint(self, A, B, C):
+
+        low = max(C)
+        high = sum(C)
+        ans = low
+        MOD = 10000003
+
+        while low <= high:
+
+            mid = low + ( high - low) // 2
+
+            if isSolve(C, A, mid):
+                high = mid - 1
+                ans = mid * B
+            else:
+                low = mid + 1
+
+        return ans % MOD
+
+def isSolve(boards, k, limit):
+    painters = 1
+    current_workload = 0
+
+    for board in boards:
+
+        if current_workload + board <= limit:
+            current_workload += board
+        else:
+            painters +=1
+            current_workload = board
+    
+    return painters <= k
+
+
+def books( A, B):
+    if B > len(A):
+        return -1
+    low = max(A)
+    high = sum(A)
+    ans = high
+    while low <= high:
+        mid = low + (high - low) // 2
+        if isSolve(A, mid ,B):
+            ans = mid
+            high = mid -1
+        else:
+            low = mid + 1
+    return ans
+
+def isSolve(books, limit, student):
+    students = 1
+    book_allocation = 0
+
+    for book in books:
+        if book_allocation + book <= limit:
+            book_allocation += book
+        else:
+            students +=1
+            book_allocation = book
+    return  students <= student
