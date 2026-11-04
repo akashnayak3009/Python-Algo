@@ -240,3 +240,213 @@ def isSolve(books, limit, student):
             students +=1
             book_allocation = book
     return  students <= student
+
+
+
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
+    def solve(self, A, B):
+        if B > len(A):
+            return -1
+
+        A.sort()
+
+        low = 1
+        high = A[-1]
+        ans = 0
+
+        while low <= high:
+
+            mid = low +(high -low) // 2
+
+            if can_place_cow(A, B, mid):
+                ans =mid
+                low = mid + 1
+
+            else:
+                high = mid -1
+
+        return ans
+
+def can_place_cow(stalls, cows, limit):
+    cow = 1
+    last_position = stalls[0]
+
+    for i in range(1, len(stalls)):
+        if stalls[i] - last_position >= limit:
+            cow += 1
+            last_position = stalls[i]
+
+            if cow >=cows:
+                return True
+
+
+    return cow >= cows
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
+    def solve(self, A, B):
+
+        low = 1
+        high = len(A) 
+        ans = 0
+
+        while low <= high:
+            mid = low + (high -low) // 2
+
+            if is_true(A, B, mid):    
+                ans = mid
+                low = mid + 1
+            else:
+               
+                high = mid -1
+
+        return ans 
+
+
+def is_true(A, B, mid):
+
+    p = sum(A[:mid])
+
+    if p > B:
+        return False
+    l = 0
+    for i in range(mid, len(A)):
+        p = p - A[i - mid] + A[i]
+        if p >B:
+            return False
+
+    return True
+
+
+
+class Solution:
+    def solve(self, A, B):
+
+        A.sort()
+
+        left = 0
+        window_sum = 0
+
+        max_freq = 0
+        ans = 0
+
+        for right in range(len(A)):
+
+            window_sum += A[right]
+
+            while (A[right] * (right - left + 1) - window_sum) > B:
+
+                window_sum -= A[left]
+                left += 1
+
+            freq = right - left + 1
+
+            if freq > max_freq:
+                max_freq = freq
+                ans = A[right]
+
+            elif freq == max_freq:
+                ans = min(ans, A[right])
+
+        return [max_freq, ans]
+class Solution:
+    # @param A : tuple of integers
+    # @param B : integer
+    # @return an integer
+    def search(self, A, B):
+        low = 0 
+        high = len(A) - 1
+
+        while low <=high:
+            mid = low + (high - low) // 2
+
+            if A[mid] == B :
+                return mid
+
+            if A[mid] >= A[low]:
+                if A[mid] >= B >=A[low]:
+                    high = mid -1
+                else:
+                    low = mid + 1                
+            else:
+                if A[mid] <= B <= A[high]:
+                    low = mid + 1   
+                else:
+                    high = mid -1
+                    
+        return -1
+
+                
+
+class Solution:
+    # @param A : list of integers
+    # @return an integer
+    def solve(self, A):
+        low = 0 
+        high = len(A)-1
+
+        while low < high:
+            mid = low + (high -low) // 2
+
+            if mid % 2 == 0:
+                if A[mid] == A[mid+1]:
+                    low = mid + 2
+                else:
+                    high = mid - 1
+            else:
+                if A[mid] == A[mid-1]:
+                    low = mid + 1
+                else:
+                    high = mid - 1
+
+        return A[low]
+
+class Solution:
+    # @param A : list of integers
+    # @param B : list of integers
+    # @return an integer
+    def solve(self, A, B):
+
+        return findMedianForSorted(A,B)
+
+def findMedianForSorted(A,B):
+    if len(A) > len(B):
+        return findMedianForSorted(B, A)
+
+    m = len(A)
+    n = len(B)
+
+    half = (m+n+1) //2 
+
+    low = 0
+    high = m
+
+    while low <= high:
+
+        i = low +(high-low) // 2
+
+        j = half - i
+
+        Aleft = float('-inf') if i == 0 else A[i-1]
+        Aright = float('inf') if i == m else A[i]
+
+        Bleft = float('-inf') if j == 0 else B[j-1]
+        Bright = float('inf') if j == n else B[j]
+
+        if Aleft <= Bright and Aright >= Bleft:
+
+            if (m+n) % 2 == 1:
+                return max(Aleft, Bleft)
+            
+            return (max(Aleft, Bleft) + min(Aright, Bright)) // 2 
+        
+        elif Aleft > Bright:
+            high = i -1
+        else:
+            low = i + 1
+
+    return -1
