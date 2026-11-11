@@ -450,3 +450,148 @@ def findMedianForSorted(A,B):
             low = i + 1
 
     return -1
+
+
+class Solution:
+    # @param A : integer
+    # @param B : integer
+    # @param C : integer
+    # @return an integer
+    def solve(self, A, B, C):
+        
+        count = 0
+        check = -1
+        i = 1 
+        while i < 1000 and count < A:
+          if i % B == 0 or i % C == 0:
+            count += 1
+            check = i
+
+          i +=1 
+        return check
+
+
+class Solution:
+    # @param A : integer
+    # @param B : integer
+    # @param C : integer
+    # @return an integer
+    def solve(self, A, B, C):
+        MOD = (10 ** 9) + 7
+
+        lcm = (B * C) // gcd(B,C)
+
+        low = 0
+        high = A * min(B,C)
+
+        ans = high
+
+        while low <= high:
+            mid = low + (high - low) // 2
+
+            count = (mid // B) + (mid // C) - (mid // lcm)
+
+            if count >=A:
+                ans = mid
+                high = mid - 1
+            else:
+                low = mid + 1
+
+        return ans % MOD
+
+
+def gcd(a,b):
+    while b:
+        a , b = b, a % b
+    return a 
+
+
+def search_rotated_sorted(arr, target):
+    """Binary search on a rotated sorted list (no duplicates). Returns
+    the index of target, or -1 if not found."""
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = left + (right - left) // 2
+        if arr[mid] == target:
+            return mid
+        if arr[left] <= arr[mid]:
+            if arr[left] <= target < arr[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:
+            if arr[mid] < target <= arr[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+    return -1
+
+
+def find_insertion_index(arr, target):
+    """Binary search for the correct insertion index that keeps a sorted
+    list sorted after inserting target."""
+    left, right = 0, len(arr)
+    while left < right:
+        mid = left + (right - left) // 2
+        if arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid
+    return left
+
+
+def find_peak_element(arr):
+    """Return the index of a peak element in arr, where a peak is strictly
+    greater than both of its neighbors (edges are compared against negative
+    infinity). If multiple peaks exist, returning the index of any one of
+    them is acceptable. """
+    n = len(arr)
+
+    if n == 1:
+        return 0
+    left, right = 0 , n - 1
+
+    while left < right:
+        mid = left + (right - left) // 2
+        if arr[mid] < arr[mid + 1]:
+            left = mid + 1
+        else:
+            right = mid
+    return left
+
+
+def search_matrix(matrix, target):
+    """Given an m x n matrix where each row is sorted ascending and the
+    first element of each row is greater than the last element of the
+    previous row, return True if target exists in the matrix."""
+    
+    l = 0 
+    r = len(matrix) - 1
+    result = -1
+    while l <= r:
+        mid = l +(r - l) // 2
+
+        length = len(matrix[mid]) - 1
+        if matrix[mid][0] <= target <= matrix[mid][length]:
+            result = mid 
+            break
+        elif target < matrix[mid][0]:
+            r = mid -1
+        else:
+            l = mid + 1 
+
+    left = 0 
+    right = len(matrix[result]) - 1
+
+    while left <= right:
+        mid = left + ( right - left) // 2
+
+        if matrix[result][mid] == target:
+            return True
+        elif matrix[result][mid] > target:
+            right = mid - 1
+        else:
+            left = mid + 1
+    return False 
+
+
