@@ -169,4 +169,38 @@ class Solution:
             skip +=1
             prev = temp
             temp = temp.next
-        return A
+        return A# Definition for singly-linked list.
+class ListNode:
+	def __init__(self, x):
+		self.val = x
+		self.next = None
+
+def reverseBetween(self, A, B, C):
+    dummy = ListNode(0)
+    dummy.next = A
+    prev = dummy 
+    for i in range(B-1):
+        prev = prev.next
+    curr = prev.next
+    for j in range(C-B):
+        node = curr.next.next
+        nxt = curr.next
+        curr.next.next = curr
+        curr.next = node
+        prev.next = nxt
+    return dummy.next
+
+
+def reverseBetween(self, A, B, C):
+ dummy = ListNode(0)
+ dummy.next = A
+ prev = dummy 
+ for i in range(B-1):
+     prev = prev.next
+ curr = prev.next
+ for j in range(C-B):
+     nxt = curr.next
+     curr.next = nxt.next
+     nxt.next = prev.next
+     prev.next = nxt
+ return dummy.next
