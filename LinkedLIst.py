@@ -204,3 +204,104 @@ def reverseBetween(self, A, B, C):
      nxt.next = prev.next
      prev.next = nxt
  return dummy.next
+
+
+# Definition for singly-linked list with a random pointer.
+class RandomListNode:
+    def __init__(self, x):
+        self.label = x
+        self.next = None
+        self.random = None
+
+class Solution:
+    # @param head, a RandomListNode
+    # @return a RandomListNode
+    def copyRandomList(self, head):
+
+        if head is None:
+            return head
+
+        temp = head
+
+        # Making copy nodes
+        while temp is not None:
+
+            nde = RandomListNode(temp.label)
+            nde.next =temp.next
+            temp.next = nde
+
+            temp = nde.next
+
+        # Assign random pointer
+
+        temp = head
+
+        while temp is not None:
+
+            if temp.random is not None:
+
+                temp.next.random = temp.random.next
+
+            temp = temp.next.next
+
+        
+        original = head
+        copy_node = head.next
+
+        while original is not None:
+
+            copy = original.next
+            original.next  = copy.next
+
+            if original.next is not None:
+                copy.next = copy.next.next
+            
+            original = original.next
+
+        return copy_node
+        
+
+        
+# Definition for singly-linked list.
+class ListNode:
+	def __init__(self, x):
+		self.val = x
+		self.next = None
+
+class Solution:
+	# @param A : head node of linked list
+	# @param B : integer
+	# @return the head node in the linked list
+	def reverseList(self, A, B):
+        if A is None:
+            return A
+
+        dummy = ListNode(0)
+        dummy.next = A
+
+        prev_group = dummy
+
+        while prev_group.next:
+
+            group_start = prev_group.next
+
+            prev = None
+            curr = group_start
+
+            for _ in range(B):
+                nxt = curr.next
+                curr.next = prev 
+
+                prev = curr
+                curr = nxt 
+
+            prev_group.next = prev
+            group_start.next = curr
+
+            prev_group = group_start
+        
+        return dummy.next
+        
+
+
+        
