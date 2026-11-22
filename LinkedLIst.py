@@ -566,3 +566,61 @@ class Solution:
         return dummy.next
 
 
+# Definition for singly-linked list.
+# class ListNode:
+#    def __init__(self, x):
+#        self.val = x
+#        self.next = None
+
+class Solution:
+    # @param A : head node of linked list
+    # @return an integer
+    def solve(self, A):
+        if A is None:
+            return 0
+
+        prev = None
+        curr = A 
+        result = 0
+
+        while curr:
+
+            new_node = curr.next
+            curr.next = prev 
+
+            odd = 2 * countCommon(prev, new_node) + 1
+            even = 2 * countCommon(curr,new_node)
+
+            result = max(result, odd, even)
+
+            prev = curr 
+            curr = new_node
+        
+        reverse(prev)
+        return result
+
+
+def reverse(A):
+    curr = A 
+    prev = None
+
+    while curr is not None:
+        nxt = curr.next
+        curr.next = prev
+
+        prev = curr
+        curr = nxt
+    return prev
+
+
+def countCommon(left, right):
+    count = 0
+
+    while left and right:
+        if left.val != right.val:
+            break
+        count +=1
+
+        left = left.next
+        right = right.next
+    return count
