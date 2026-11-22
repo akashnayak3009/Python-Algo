@@ -268,40 +268,301 @@ class ListNode:
 		self.val = x
 		self.next = None
 
+def reverseList(self, A, B):
+    if A is None:
+        return A
+    dummy = ListNode(0)
+    dummy.next = A
+    prev_group = dummy
+    while prev_group.next:
+        group_start = prev_group.next
+        prev = None
+        curr = group_start
+        for _ in range(B):
+            nxt = curr.next
+            curr.next = prev 
+            prev = curr
+            curr = nxt 
+        prev_group.next = prev
+        group_start.next = curr
+        prev_group = group_start
+    
+    return dummy.next
+    
+
+# Definition for singly-linked list.
+class ListNode:
+   def __init__(self, x):
+       self.val = x
+       self.next = None
+
+class Solution:
+    # @param A : head node of linked list
+    # @return an integer
+    def solve(self, A):
+
+        slow = A
+        fast = A
+
+        while fast and fast.next:
+
+            slow = slow.next
+            fast = fast.next.next
+
+        return slow.val
+
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+class Solution:
+    # @param A : head node of linked list
+    # @return the head node in the linked list
+    def sortList(self, A):
+        if A is None or A.next is None:
+            return A
+        return mergeList(A)
+
+def mergeList(A):
+
+    if A is None or A.next is None:
+        return A
+
+    getMiddle = middleList(A)
+    second = getMiddle.next
+    getMiddle.next = None
+
+    firstHalf = mergeList(A)
+    secondHalf = mergeList(second)
+
+    return merge(firstHalf, secondHalf)
+
+def merge(left, right):
+    dummy = ListNode(-1)
+    tail = dummy
+
+    temp1 = left
+    temp2 = right
+
+    while temp1 and temp2:
+        if temp1.val <= temp2.val:
+            tail.next = temp1
+            temp1 = temp1.next
+        else:
+            tail.next = temp2
+            temp2 = temp2.next
+        
+        tail = tail.next
+
+    if temp1 is not None:
+        tail.next = temp1
+
+    if temp2 is not None:
+        tail.next = temp2
+
+    return dummy.next
+
+def middleList(A):
+    slow = A
+    fast = A
+
+    while fast.next and fast.next.next:
+        slow = slow.next
+        fast = fast.next.next
+
+    return slow
+
+
+# Definition for singly-linked list.
+class ListNode:
+	def __init__(self, x):
+		self.val = x
+		self.next = None
+
 class Solution:
 	# @param A : head node of linked list
-	# @param B : integer
+	# @param B : head node of linked list
 	# @return the head node in the linked list
-	def reverseList(self, A, B):
+	def mergeTwoLists(self, A, B):
+
+        dummy = ListNode(-1)
+        tail = dummy
+
+        temp1 = A
+        temp2 = B
+
+        while temp1 and temp2:
+            if temp1.val <= temp2.val:
+                tail.next = temp1
+                temp1 = temp1.next
+            else:
+                tail.next = temp2
+                temp2 = temp2.next
+
+            tail = tail.next
+
+        if temp1 is not None:
+            tail.next = temp1
+        
+        if temp2 is not None:
+            tail.next = temp2
+        
+        return dummy.next
+
+
+# Definition for singly-linked list.
+class ListNode:
+	def __init__(self, x):
+		self.val = x
+		self.next = None
+
+class Solution:
+	# @param A : head node of linked list
+	# @return an integer
+	def lPalin(self, A):
+
+        if A is None or A.next is None:
+            return 1 
+
+        slow = A 
+        fast = A 
+
+        while fast and fast.next:
+            prev_slow = slow
+            slow = slow.next
+            fast = fast.next.next 
+
+        if fast:
+            second_half = slow.next 
+            connector = slow
+        else:
+            second_half = slow
+            connector = prev_slow
+
+
+        reverse = getReversed(second_half)
+
+        result = 1
+
+        first = A 
+        second = reverse
+
+        while second:
+
+            if first.val != second.val:
+                result = 0
+                break
+        
+            first = first.next
+            second = second.next
+
+        connector.next = getReversed(reverse)
+        return result
+
+def getReversed(A):
+
+    temp = A 
+    prev =None
+
+    while temp is not None:
+
+        nxt = temp.next
+
+        temp.next = prev
+        prev = temp
+
+        temp = nxt
+
+    return prev
+# Definition for singly-linked list.
+class ListNode:
+	def __init__(self, x):
+		self.val = x
+		self.next = None
+
+class Solution:
+	# @param A : head node of linked list
+	# @return the head node in the linked list
+	def swapPairs(self, A):
+
         if A is None:
             return A
 
         dummy = ListNode(0)
-        dummy.next = A
+        dummy.next = A 
 
-        prev_group = dummy
+        prev_group = dummy 
 
-        while prev_group.next:
+        while prev_group.next and prev_group.next.next:
 
             group_start = prev_group.next
 
-            prev = None
             curr = group_start
+            prev = None
 
-            for _ in range(B):
+            for _ in range(2):
                 nxt = curr.next
-                curr.next = prev 
+                curr.next = prev
 
                 prev = curr
-                curr = nxt 
-
+                curr = nxt
+            
             prev_group.next = prev
             group_start.next = curr
 
             prev_group = group_start
-        
+
         return dummy.next
-        
+# Definition for singly-linked list.
+class ListNode:
+	def __init__(self, x):
+		self.val = x
+		self.next = None
+
+class Solution:
+	# @param A : head node of linked list
+	# @param B : head node of linked list
+	# @return the head node in the linked list
+	def addTwoNumbers(self, A, B):
+
+        dummy = ListNode(0)
+        tail = dummy 
+
+        temp1 = A
+        temp2 = B
+        carry = 0 
+        while temp1 or temp2 or carry:
+
+            if temp1:
+                value1 = temp1.val
+            else:
+                value1 = 0
+
+            if temp2:
+                value2 = temp2.val
+            else:
+                value2 = 0 
+             
+            s = value1 + value2 + carry
+
+            if s > 9:
+                carry = 1
+                r =  s % 10
+            else:
+                carry  = 0
+                r = s
+            
+            tail.next = ListNode(r)
+            
+            if temp1:
+                temp1 = temp1.next
+            if temp2:
+                temp2 = temp2.next
+
+            tail = tail.next
+
+        return dummy.next
 
 
-        
