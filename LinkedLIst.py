@@ -624,3 +624,6 @@ def countCommon(left, right):
         left = left.next
         right = right.next
     return count
+
+
+
